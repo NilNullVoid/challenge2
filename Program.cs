@@ -32,7 +32,6 @@ namespace challenge2
                     // Mapping keys to functions the lazy and inefficient way
                     case "D1":
                         Add();
-                        Console.ReadKey();
                         continue;
                     case "D2":
                         Console.Clear();
