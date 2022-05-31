@@ -31,7 +31,6 @@ namespace challenge2
                 {
                     // Mapping keys to functions the lazy and inefficient way
                     case "D1":
-                        Console.Clear();
                         Add();
                         Console.ReadKey();
                         continue;
@@ -64,31 +63,41 @@ namespace challenge2
         }
         public static void Add()
         {
-            Console.WriteLine("You've selected to roll the dice");
-            Random gen = new Random();
-            int x = 0;
-            // making sure input is an int
-            while(true) {
-                Console.WriteLine("Please enter the amount of rolls you would like to make: ");
-                bool success = int.TryParse(Console.ReadLine().ToString(), out x);
+            while (true)
+            {
                 Console.Clear();
-                if(success || x > 0 ){
+                Console.WriteLine("You've selected to roll the dice");
+                Random gen = new Random();
+                int x = 0;
+                // making sure input is an int
+                while (true)
+                {
+                    Console.WriteLine("Please enter the amount of rolls you would like to make: ");
+                    bool success = int.TryParse(Console.ReadLine().ToString(), out x);
+                    Console.Clear();
+                    if (success || x > 0)
+                    {
+                        break;
+                    }
+                }
+                // Rollin', rollin', rollin' on the river
+                for (int i = 0; i < x; i++)
+                {
+                    Rolls.Add(gen.Next(1, 7));
+                }
+                Console.WriteLine($"You have successfully added {x} item{(x == 1 ? "" : "s")}");
+                Console.WriteLine("Would you like to roll more? (Y/N)");
+                if (Console.ReadKey().KeyChar != 'y')
+                {
                     break;
                 }
             }
-            // Rollin', rollin', rollin' on the river
-            for (int i = 0; i < x; i++) 
-            {
-                Rolls.Add(gen.Next(1,7));
-            }
-            
-            Console.WriteLine($"You have successfully added {x} item{(x == 1 ? "" : "s")}");
         }
         public static void List()
         {
             Console.WriteLine($"Total: {Total()}");
             Console.WriteLine($"Average: {Average(Total())}");
-            
+
             // That's a lot of words. Too bad I'm not readin' 'em.
             foreach (int roll in Rolls)
             {
